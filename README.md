@@ -28,11 +28,18 @@ https://you-sk.github.io/web-window-system-demo/
 2.  デスクトップ上のアイコンをダブルクリックして、好きなアプリケーションを起動します。
 3.  ウィンドウのタイトルバーをドラッグしたり、右下の角をリサイズしたりして、自由に操作してみてください。
 
+## 📁 ファイル構成
+
+-   `index.html`: メインのHTMLファイル
+-   `style.css`: スタイルシート定義
+-   `script.js`: JavaScriptロジック
+
 ## 🛠️ 使用技術
 
 -   **HTML**: 構造の定義
--   **Tailwind CSS**: スタイリング
--   **Vanilla JavaScript**: 全てのインタラクションとロジック
+-   **CSS**: スタイル定義（`style.css`）
+-   **Tailwind CSS**: ユーティリティクラスベースのスタイリング
+-   **Vanilla JavaScript**: 全てのインタラクションとロジック（`script.js`）
 
 ## ライセンス
 
