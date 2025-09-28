@@ -9,6 +9,54 @@ document.addEventListener('DOMContentLoaded', () => {
         'icon-paint': 'window-paint',
         'icon-filemanager': 'window-filemanager'
     };
+    const windowTitles = {
+        'window-notepad': 'メモ帳',
+        'window-settings': '設定',
+        'window-calculator': '電卓',
+        'window-paint': 'ペイント',
+        'window-filemanager': 'ファイルマネージャー'
+    };
+    const taskbarItems = document.getElementById('taskbar-items');
+
+    // --- Taskbar Management ---
+    function createTaskbarItem(windowId) {
+        const button = document.createElement('button');
+        button.className = 'taskbar-item bevel-out bg-[#c0c0c0] text-black';
+        button.textContent = windowTitles[windowId];
+        button.dataset.windowId = windowId;
+
+        button.addEventListener('click', () => {
+            const win = document.getElementById(windowId);
+            if (win.classList.contains('minimized')) {
+                win.classList.remove('minimized');
+                win.classList.remove('hidden');
+                activateWindow(win);
+            } else if (win.querySelector('.title-bar').classList.contains('active')) {
+                win.classList.add('minimized');
+                button.classList.remove('active');
+            } else {
+                activateWindow(win);
+            }
+        });
+
+        return button;
+    }
+
+    function updateTaskbar() {
+        taskbarItems.innerHTML = '';
+        windows.forEach(win => {
+            if (!win.classList.contains('hidden') && !win.classList.contains('minimized')) {
+                const item = createTaskbarItem(win.id);
+                if (win.querySelector('.title-bar').classList.contains('active')) {
+                    item.classList.add('active');
+                }
+                taskbarItems.appendChild(item);
+            } else if (win.classList.contains('minimized')) {
+                const item = createTaskbarItem(win.id);
+                taskbarItems.appendChild(item);
+            }
+        });
+    }
 
     // --- Window Interaction Logic ---
     function activateWindow(win) {
@@ -17,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         win.querySelector('.title-bar').classList.add('active');
         highestZ++;
         win.style.zIndex = highestZ;
+        updateTaskbar();
     }
 
     windows.forEach(win => {
@@ -57,6 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
         btnClose.addEventListener('click', (e) => {
             e.stopPropagation();
             win.classList.add('hidden');
+            win.classList.remove('minimized');
+            updateTaskbar();
         });
 
         btnMaximize.addEventListener('click', (e) => {
@@ -120,8 +171,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if(icon && win){
             icon.addEventListener('dblclick', () => {
                 win.classList.remove('hidden');
+                win.classList.remove('minimized');
                 activateWindow(win);
-                
+
                 if(windowId === 'window-paint') {
                     const canvas = win.querySelector('#paint-canvas');
                     setTimeout(() => resizeCanvas(canvas), 0);
@@ -205,6 +257,23 @@ document.addEventListener('DOMContentLoaded', () => {
         canvas.addEventListener('mouseleave', () => isDrawing = false);
     }
 
-    // Activate a window on start
-    activateWindow(document.getElementById('window-notepad'));
+    // --- Clock ---
+    function updateClock() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        document.getElementById('clock').textContent = `${hours}:${minutes}`;
+    }
+    updateClock();
+    setInterval(updateClock, 30000); // Update every 30 seconds
+
+    // --- Start Button ---
+    const startButton = document.getElementById('start-button');
+    startButton.addEventListener('click', () => {
+        // Placeholder for start menu functionality
+        alert('スタートメニューは現在実装中です');
+    });
+
+    // Initialize - hide all windows on start
+    windows.forEach(win => win.classList.add('hidden'));
 });

@@ -94,3 +94,31 @@ body {
 .file-item svg {
     margin-right: 4px;
 }
+
+/* タスクバーのスタイル */
+.taskbar-item {
+    padding: 0 12px;
+    height: 32px;
+    min-width: 120px;
+    max-width: 200px;
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.taskbar-item.active {
+    background-color: #ffffff;
+    border-style: solid;
+    border-width: 2px;
+    border-top-color: #404040;
+    border-left-color: #404040;
+    border-bottom-color: #ffffff;
+    border-right-color: #ffffff;
+}
+
+.window.minimized {
+    display: none !important;
+}
