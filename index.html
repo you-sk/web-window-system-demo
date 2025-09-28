@@ -10,7 +10,7 @@
 <body class="w-screen h-screen">
 
     <!-- Desktop Icons -->
-    <div id="desktop" class="p-4 flex flex-col flex-wrap content-start h-full">
+    <div id="desktop" class="p-4 flex flex-col flex-wrap content-start" style="height: calc(100vh - 40px);">
         <div id="icon-notepad" class="icon w-24 h-24 flex flex-col items-center justify-center cursor-pointer mb-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="white" stroke-width="1"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
             <p class="text-white mt-2 text-center icon-text">メモ帳</p>
@@ -76,6 +76,19 @@
             </div>
         </div>
         <div class="resize-handle"></div>
+    </div>
+
+    <!-- Taskbar -->
+    <div id="taskbar" class="fixed bottom-0 left-0 right-0 h-10 bg-[#c0c0c0] bevel-out flex items-center px-1" style="z-index: 9999;">
+        <button id="start-button" class="h-8 px-3 bevel-out bg-[#c0c0c0] font-bold text-sm mr-2 flex items-center">
+            <span class="text-black">Start</span>
+        </button>
+        <div id="taskbar-items" class="flex-1 flex items-center space-x-1">
+            <!-- Taskbar items will be dynamically added here -->
+        </div>
+        <div id="system-tray" class="flex items-center px-2">
+            <span id="clock" class="text-sm font-bold"></span>
+        </div>
     </div>
 
     <script src="script.js"></script>
